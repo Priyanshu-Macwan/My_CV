@@ -40,43 +40,63 @@ const LINKS = [
 ]
 
 export default function Contact() {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 })
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.15 })
 
   return (
-    <section id="contact" className="section" ref={ref}>
-      <div className="wrap text-center" style={{ maxWidth: 680 }}>
+    <section id="contact" className="min-h-screen flex items-center justify-center relative py-20 overflow-hidden" ref={ref}>
+      {/* Dedicated ambient glow inside section */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] pointer-events-none z-0">
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 0.95, 1],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="absolute inset-0 rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(59,130,246,0.18) 0%, rgba(168,85,247,0.1) 50%, transparent 70%)',
+            filter: 'blur(75px)'
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 text-center w-full px-6" style={{ maxWidth: 720 }}>
         {/* Eyebrow */}
         <motion.div
-          variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.55 } } }}
+          variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.19, 1, 0.22, 1] } } }}
           initial="hidden"
           animate={inView ? 'show' : 'hidden'}
-          className="mb-6"
+          className="mb-8"
         >
           <div className="eyebrow justify-center">
-            <span style={{ width: 28, height: 1.5, background: '#3B82F6', borderRadius: 1, display: 'inline-block' }} />
+            <span style={{ width: 32, height: 1.5, background: 'linear-gradient(90deg, transparent, #3B82F6)', borderRadius: 1, display: 'inline-block' }} />
             Contact
-            <span style={{ width: 28, height: 1.5, background: '#3B82F6', borderRadius: 1, display: 'inline-block' }} />
+            <span style={{ width: 32, height: 1.5, background: 'linear-gradient(90deg, #3B82F6, transparent)', borderRadius: 1, display: 'inline-block' }} />
           </div>
         </motion.div>
 
         {/* Heading */}
         <motion.h2
-          variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.05 } } }}
+          variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.65, delay: 0.05, ease: [0.19, 1, 0.22, 1] } } }}
           initial="hidden"
           animate={inView ? 'show' : 'hidden'}
-          className="font-semibold tracking-tight mb-4"
-          style={{ fontSize: 'clamp(32px, 6vw, 60px)', fontWeight: 600, letterSpacing: '-1.5px', lineHeight: 1.05 }}
+          className="font-extrabold tracking-tight mb-6"
+          style={{ fontSize: 'clamp(38px, 7vw, 68px)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1.05, color: '#FFFFFF' }}
         >
           Let's build <span className="grad-text">something.</span>
         </motion.h2>
 
         {/* Subtext */}
         <motion.p
-          variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0, transition: { duration: 0.55, delay: 0.12 } } }}
+          variants={{ hidden: { opacity: 0, y: 16 }, show: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.12, ease: [0.19, 1, 0.22, 1] } } }}
           initial="hidden"
           animate={inView ? 'show' : 'hidden'}
-          className="text-slate-400 font-light mb-14"
-          style={{ fontSize: 'clamp(14px, 1.6vw, 17px)' }}
+          className="text-slate-400 font-light mb-16 leading-relaxed"
+          style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', maxWidth: '580px', margin: '0 auto 4rem' }}
         >
           Open to internships, collaborations, and interesting problems.
         </motion.p>
@@ -86,7 +106,7 @@ export default function Contact() {
           variants={{ show: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } } }}
           initial="hidden"
           animate={inView ? 'show' : 'hidden'}
-          className="flex flex-col sm:flex-row justify-center gap-4"
+          className="flex flex-col sm:flex-row justify-center gap-6"
         >
           {LINKS.map(link => (
             <motion.a
@@ -95,14 +115,14 @@ export default function Contact() {
               href={link.href}
               target={link.href.startsWith('mailto') ? undefined : '_blank'}
               rel="noopener noreferrer"
-              variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.19,1,0.22,1] } } }}
-              className="glass contact-card flex flex-col items-center gap-3 p-7 no-underline"
-              style={{ minWidth: 160, flex: 1 }}
+              variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.19, 1, 0.22, 1] } } }}
+              className="glass contact-card flex flex-col items-center gap-4 p-8 no-underline"
+              style={{ minWidth: 170, flex: 1 }}
             >
               <div className="cc-icon text-slate-400 transition-colors duration-300">{link.icon}</div>
               <div>
-                <div className="text-sm font-medium text-slate-200 mb-0.5">{link.label}</div>
-                <div className="text-[10px] text-slate-600 truncate" style={{ maxWidth: 140 }}>{link.sub}</div>
+                <div className="text-sm font-semibold text-slate-200 mb-0.5">{link.label}</div>
+                <div className="text-[11px] text-slate-500 truncate" style={{ maxWidth: 155 }}>{link.sub}</div>
               </div>
             </motion.a>
           ))}
@@ -110,10 +130,10 @@ export default function Contact() {
 
         {/* Availability badge */}
         <motion.div
-          variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { delay: 0.5 } } }}
+          variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { delay: 0.55 } } }}
           initial="hidden"
           animate={inView ? 'show' : 'hidden'}
-          className="mt-12"
+          className="mt-16"
         >
           <div className="eyebrow-badge" style={{ marginBottom: 0 }}>
             <span className="eyebrow-dot" />

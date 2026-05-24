@@ -206,8 +206,8 @@ function CompactCard({ p }) {
 
 /* ── Section ─────────────────────────────────────────── */
 const cardVariants = {
-  hidden: { opacity: 0, y: 50, scale: 0.98, filter: 'blur(4px)' },
-  show:   { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] } },
+  hidden: { opacity: 0, y: 35, scale: 0.97, filter: 'blur(4px)' },
+  show:   { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transition: { duration: 0.8, ease: [0.19, 1, 0.22, 1] } },
 }
 
 export default function Projects() {

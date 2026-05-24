@@ -83,9 +83,45 @@ function OrbitPill({ pill }) {
   )
 }
 
+/* ── Magnetic Button ─────────────────────────────────── */
+function MagneticButton({ children, className, href, download, id }) {
+  const ref = useRef(null)
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e) => {
+    if (!ref.current) return
+    const { clientX, clientY } = e
+    const { left, top, width, height } = ref.current.getBoundingClientRect()
+    const x = clientX - (left + width / 2)
+    const y = clientY - (top + height / 2)
+    setPosition({ x: x * 0.28, y: y * 0.28 })
+  }
+
+  const handleMouseLeave = () => {
+    setPosition({ x: 0, y: 0 })
+  }
+
+  return (
+    <motion.a
+      ref={ref}
+      href={href}
+      id={id}
+      download={download}
+      className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      animate={{ x: position.x, y: position.y }}
+      transition={{ type: 'spring', stiffness: 150, damping: 15, mass: 0.1 }}
+    >
+      {children}
+    </motion.a>
+  )
+}
+
 export default function Hero() {
   const typed = useTypewriter(PERSONAL.titles)
   const heroRef = useRef(null)
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
 
   const handleMouseMove = (e) => {
     if (!heroRef.current) return
@@ -94,6 +130,14 @@ export default function Hero() {
     const y = ((e.clientY - rect.top) / rect.height) * 100
     heroRef.current.style.setProperty('--mx', x + '%')
     heroRef.current.style.setProperty('--my', y + '%')
+
+    const rx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2)
+    const ry = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2)
+    setMousePos({ x: rx * 12, y: ry * 12 })
+  }
+
+  const handleMouseLeave = () => {
+    setMousePos({ x: 0, y: 0 })
   }
 
   return (
@@ -101,6 +145,7 @@ export default function Hero() {
       id="hero"
       ref={heroRef}
       onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       className="relative min-h-screen flex items-center overflow-hidden"
       style={{
         paddingTop: 64,
@@ -112,14 +157,14 @@ export default function Hero() {
         boxSizing: 'border-box',
         '--mx': '50%',
         '--my': '50%',
-        background: 'radial-gradient(600px circle at var(--mx) var(--my), rgba(59,130,246,0.06), transparent 50%)'
+        background: 'radial-gradient(600px circle at var(--mx) var(--my), rgba(59,130,246,0.05), transparent 50%)'
       }}
     >
       {/* Grid bg */}
       <div className="absolute inset-0 pointer-events-none"
            style={{
              backgroundImage:
-               'linear-gradient(rgba(59,130,246,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.035) 1px, transparent 1px)',
+               'linear-gradient(rgba(59,130,246,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.02) 1px, transparent 1px)',
              backgroundSize: '56px 56px',
              maskImage: 'radial-gradient(ellipse at center, black 20%, transparent 75%)',
            }}
@@ -137,8 +182,8 @@ export default function Hero() {
           >
             {/* Eyebrow badge */}
             <motion.div variants={fadeUp} className="mb-6">
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium text-green-400"
-                    style={{ background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)' }}>
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium text-green-400"
+                    style={{ background: 'rgba(34,197,94,0.06)', border: '1px solid rgba(34,197,94,0.15)' }}>
                 <span className="pulse-dot" />
                 Open to Internships
               </span>
@@ -147,42 +192,47 @@ export default function Hero() {
             {/* H1 */}
             <motion.h1
               variants={fadeUp}
-              className="font-semibold leading-tight tracking-tight mb-3"
-              style={{ fontSize: 'clamp(40px, 6vw, 72px)', fontWeight: 600, color: '#F1F5F9' }}
+              className="font-extrabold leading-tight tracking-tighter mb-4 text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-indigo-100 to-slate-200"
+              style={{
+                fontSize: 'clamp(46px, 7vw, 78px)',
+                textShadow: '0 0 80px rgba(59,130,246,0.25)',
+                letterSpacing: '-0.04em',
+                lineHeight: 1.05
+              }}
             >
               {PERSONAL.name}
             </motion.h1>
 
             {/* Typewriter */}
-            <motion.div variants={fadeUp} className="mb-4" style={{ minHeight: 32 }}>
-              <span className="grad-text font-medium" style={{ fontSize: 'clamp(16px, 2.5vw, 22px)' }}>
+            <motion.div variants={fadeUp} className="mb-5" style={{ minHeight: 32 }}>
+              <span className="grad-text font-semibold" style={{ fontSize: 'clamp(18px, 2.8vw, 24px)', filter: 'drop-shadow(0 0 10px rgba(59,130,246,0.25))' }}>
                 {typed}
                 <span className="inline-block w-0.5 h-5 ml-0.5 bg-blue-400 align-middle animate-pulse" />
               </span>
             </motion.div>
 
             {/* Hook */}
-            <motion.p variants={fadeUp} className="text-slate-400 mb-8 font-light"
-                      style={{ fontSize: 'clamp(14px, 1.6vw, 17px)' }}>
+            <motion.p variants={fadeUp} className="text-slate-400 mb-8 font-light leading-relaxed"
+                      style={{ fontSize: 'clamp(14px, 1.6vw, 17px)', maxWidth: '520px' }}>
               I build real things — from web apps to ESP32 hardware.
             </motion.p>
 
             {/* CTAs */}
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mb-8">
-              <a href="#projects" id="hero-view-projects" className="btn btn-primary text-sm px-5 py-2.5">
+            <motion.div variants={fadeUp} className="flex flex-wrap gap-3.5 mb-8">
+              <MagneticButton href="#projects" id="hero-view-projects" className="btn btn-primary text-sm px-6 py-3">
                 <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
                   <path d="M5 12h14M12 5l7 7-7 7"/>
                 </svg>
                 View Projects
-              </a>
-              <a
+              </MagneticButton>
+              <MagneticButton
                 href="/Priyanshu_Macwan_Resume.pdf"
                 id="hero-download-resume"
                 download
-                className="btn btn-outline text-sm px-5 py-2.5"
+                className="btn btn-outline text-sm px-6 py-3"
               >
                 Download Resume ↗
-              </a>
+              </MagneticButton>
             </motion.div>
 
             {/* Social row */}
@@ -219,22 +269,52 @@ export default function Hero() {
           {/* ── RIGHT COLUMN ─────────────────────────────── */}
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.85, delay: 0.25, ease: [0.19, 1, 0.22, 1] }}
+            animate={{ opacity: 1, scale: 1, x: mousePos.x, y: mousePos.y }}
+            transition={{ type: 'spring', stiffness: 100, damping: 20 }}
             className="hidden md:flex items-center justify-center relative"
             style={{ height: 420 }}
           >
-            {/* Glow blobs */}
+            {/* Glow blobs - layered rotating */}
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute"
-                   style={{
-                     width: 320, height: 320,
-                     borderRadius: '50%',
-                     background: 'radial-gradient(circle, rgba(59,130,246,0.22), rgba(139,92,246,0.12), transparent 70%)',
-                     top: '50%', left: '50%',
-                     transform: 'translate(-50%, -50%)',
-                     filter: 'blur(48px)',
-                   }}
+              <motion.div
+                animate={{
+                  scale: [1, 1.12, 0.95, 1],
+                  rotate: [0, 90, 180, 360],
+                }}
+                transition={{
+                  duration: 16,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+                className="absolute"
+                style={{
+                  width: 380, height: 380,
+                  borderRadius: '50%',
+                  background: 'radial-gradient(circle, rgba(59,130,246,0.25) 0%, rgba(168,85,247,0.15) 50%, transparent 70%)',
+                  top: '50%', left: '50%',
+                  x: '-50%', y: '-50%',
+                  filter: 'blur(55px)',
+                }}
+              />
+              <motion.div
+                animate={{
+                  scale: [1, 0.92, 1.08, 1],
+                  rotate: [360, 270, 180, 0],
+                }}
+                transition={{
+                  duration: 22,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+                className="absolute"
+                style={{
+                  width: 300, height: 300,
+                  borderRadius: '50%',
+                  background: 'radial-gradient(circle, rgba(6,182,212,0.2) 0%, transparent 70%)',
+                  top: '55%', left: '45%',
+                  x: '-50%', y: '-50%',
+                  filter: 'blur(45px)',
+                }}
               />
             </div>
 

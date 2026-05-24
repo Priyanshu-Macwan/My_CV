@@ -52,14 +52,56 @@ export default function App() {
   return (
     <>
       <div id="scroll-bg">
-        <div className="bg-layer active" id="bg-hero"     style={{ background: `radial-gradient(ellipse 60% 80% at 75% -10%, rgba(30,80,160,0.6) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 10% 90%, rgba(15,30,80,0.5) 0%, transparent 50%), #080e1a` }}></div>
-        <div className="bg-layer"        id="bg-about"    style={{ background: `radial-gradient(ellipse 70% 60% at -10% 110%, rgba(100,40,180,0.5) 0%, transparent 55%), radial-gradient(ellipse 40% 50% at 90% 10%, rgba(30,15,80,0.4) 0%, transparent 50%), #0a0814` }}></div>
-        <div className="bg-layer"        id="bg-skills"   style={{ background: `radial-gradient(ellipse 80% 50% at 50% -20%, rgba(6,100,120,0.55) 0%, transparent 60%), radial-gradient(ellipse 40% 60% at 100% 80%, rgba(6,60,80,0.35) 0%, transparent 50%), #060e10` }}></div>
-        <div className="bg-layer"        id="bg-projects" style={{ background: `radial-gradient(ellipse 70% 70% at 50% 50%, rgba(30,20,100,0.6) 0%, transparent 65%), radial-gradient(ellipse 50% 30% at 90% 20%, rgba(59,40,140,0.3) 0%, transparent 50%), #07060f` }}></div>
-        <div className="bg-layer"        id="bg-timeline" style={{ background: `radial-gradient(ellipse 60% 80% at 110% 50%, rgba(100,20,80,0.45) 0%, transparent 55%), radial-gradient(ellipse 50% 40% at 0% 30%, rgba(30,10,60,0.4) 0%, transparent 50%), #0a060c` }}></div>
-        <div className="bg-layer"        id="bg-contact"  style={{ background: `radial-gradient(ellipse 80% 80% at 50% 100%, rgba(20,60,180,0.55) 0%, transparent 60%), radial-gradient(ellipse 40% 30% at 80% 0%, rgba(40,20,100,0.35) 0%, transparent 50%), #060810` }}></div>
+        {/* HERO BACKGROUND */}
+        <div className="bg-layer active" id="bg-hero">
+          <div className="bg-layer-image" style={{ backgroundImage: 'url(/images/bg-hero.png)' }} />
+          <div className="bg-layer-atmosphere" style={{ background: 'radial-gradient(ellipse 65% 80% at 75% -10%, rgba(59,130,246,0.18) 0%, transparent 70%), radial-gradient(ellipse 55% 45% at 15% 85%, rgba(139,92,246,0.08) 0%, transparent 60%)' }} />
+          <div className="glowing-blob blue" style={{ width: '450px', height: '450px', top: '-10%', left: '55%' }} />
+          <div className="glowing-blob purple" style={{ width: '380px', height: '380px', bottom: '10%', left: '-10%' }} />
+        </div>
+
+        {/* ABOUT BACKGROUND */}
+        <div className="bg-layer" id="bg-about">
+          <div className="bg-layer-image" style={{ backgroundImage: 'url(/images/bg-about.png)' }} />
+          <div className="bg-layer-atmosphere" style={{ background: 'radial-gradient(ellipse 75% 60% at -10% 110%, rgba(139,92,246,0.08) 0%, transparent 65%), radial-gradient(ellipse 50% 50% at 90% 10%, rgba(59,130,246,0.18) 0%, transparent 65%)' }} />
+          <div className="glowing-blob purple" style={{ width: '450px', height: '450px', bottom: '-10%', left: '-10%' }} />
+          <div className="glowing-blob cyan" style={{ width: '350px', height: '350px', top: '10%', right: '5%' }} />
+        </div>
+
+        {/* SKILLS BACKGROUND */}
+        <div className="bg-layer" id="bg-skills">
+          <div className="bg-layer-image" style={{ backgroundImage: 'url(/images/bg-skills.png)' }} />
+          <div className="bg-layer-atmosphere" style={{ background: 'radial-gradient(ellipse 85% 55% at 50% -20%, rgba(6,182,212,0.12) 0%, transparent 70%), radial-gradient(ellipse 50% 60% at 100% 80%, rgba(59,130,246,0.18) 0%, transparent 60%)' }} />
+          <div className="glowing-blob cyan" style={{ width: '500px', height: '500px', top: '-25%', left: '20%' }} />
+          <div className="glowing-blob blue" style={{ width: '350px', height: '350px', bottom: '10%', right: '-10%' }} />
+        </div>
+
+        {/* PROJECTS BACKGROUND */}
+        <div className="bg-layer" id="bg-projects">
+          <div className="bg-layer-image" style={{ backgroundImage: 'url(/images/bg-projects.png)' }} />
+          <div className="bg-layer-atmosphere" style={{ background: 'radial-gradient(ellipse 75% 75% at 50% 50%, rgba(139,92,246,0.08) 0%, transparent 70%), radial-gradient(ellipse 55% 35% at 90% 20%, rgba(59,130,246,0.18) 0%, transparent 60%)' }} />
+          <div className="glowing-blob purple" style={{ width: '450px', height: '450px', top: '15%', left: '25%' }} />
+          <div className="glowing-blob blue" style={{ width: '380px', height: '380px', top: '-10%', right: '-5%' }} />
+        </div>
+
+        {/* TIMELINE BACKGROUND */}
+        <div className="bg-layer" id="bg-timeline">
+          <div className="bg-layer-image" style={{ backgroundImage: 'url(/images/bg-timeline.png)' }} />
+          <div className="bg-layer-atmosphere" style={{ background: 'radial-gradient(ellipse 65% 85% at 110% 50%, rgba(139,92,246,0.08) 0%, transparent 65%), radial-gradient(ellipse 55% 45% at 0% 30%, rgba(6,182,212,0.12) 0%, transparent 60%)' }} />
+          <div className="glowing-blob purple" style={{ width: '450px', height: '450px', top: '25%', right: '-10%' }} />
+          <div className="glowing-blob cyan" style={{ width: '380px', height: '380px', bottom: '10%', left: '-10%' }} />
+        </div>
+
+        {/* CONTACT BACKGROUND */}
+        <div className="bg-layer" id="bg-contact">
+          <div className="bg-layer-image" style={{ backgroundImage: 'url(/images/bg-contact.png)' }} />
+          <div className="bg-layer-atmosphere" style={{ background: 'radial-gradient(circle 600px at 50% 50%, rgba(59,130,246,0.18) 0%, rgba(139,92,246,0.08) 45%, transparent 70%)' }} />
+          <div className="glowing-blob blue" style={{ width: '500px', height: '500px', top: '25%', left: '25%' }} />
+          <div className="glowing-blob purple" style={{ width: '450px', height: '450px', bottom: '20%', right: '20%' }} />
+        </div>
       </div>
       <div id="scroll-grid"></div>
+      <div id="noise-overlay"></div>
 
       <div className="relative z-10">
         <Navbar />

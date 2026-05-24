@@ -44,10 +44,10 @@ export default function Navbar() {
       initial={{ y: -70, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.55, ease: [0.19, 1, 0.22, 1] }}
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'border-b border-white/5 bg-slate-900/80 backdrop-blur-xl'
-          : 'bg-transparent'
+          ? 'border-b border-white/5 bg-slate-950/70 backdrop-blur-xl shadow-lg shadow-black/25'
+          : 'border-b border-transparent bg-transparent'
       }`}
       style={{ height: 64 }}
     >
@@ -65,25 +65,37 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-1 navbar-links">
-          {NAV_LINKS.map(link => (
-            <a
-              key={link.href}
-              href={link.href}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 no-underline ${
-                active === link.href.slice(1)
-                  ? 'active'
-                  : 'text-slate-400 hover:text-slate-100 hover:bg-white/5'
-              }`}
-            >
-              {link.label}
-            </a>
-          ))}
-          <a
+          {NAV_LINKS.map(link => {
+            const isActive = active === link.href.slice(1)
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`relative px-3 py-1.5 rounded-lg text-sm font-medium transition-colors duration-300 no-underline ${
+                  isActive ? 'text-white font-semibold' : 'text-slate-400 hover:text-slate-100'
+                }`}
+              >
+                {link.label}
+                {isActive && (
+                  <motion.div
+                    layoutId="activeNavTab"
+                    className="absolute bottom-[-4px] left-2 right-2 h-[2px] bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full"
+                    style={{ boxShadow: '0 0 10px rgba(59,130,246,0.5)' }}
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+              </a>
+            )
+          })}
+          <motion.a
             href={`mailto:${PERSONAL.email}`}
-            className="ml-3 btn btn-primary text-xs"
+            className="ml-3 btn btn-primary text-xs px-4 py-2"
+            whileHover={{ y: -1, scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
             Hire Me
-          </a>
+          </motion.a>
         </div>
 
         {/* Hamburger */}

@@ -35,7 +35,7 @@ function PillGroup({ group, skills, inView }) {
       }}
       initial="hidden"
       animate={inView ? 'show' : 'hidden'}
-      className="glass p-6"
+      className="glass glass-hover p-6"
     >
       {/* Group header */}
       <div className="flex items-center gap-3 mb-5">

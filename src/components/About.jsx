@@ -159,7 +159,7 @@ export default function About() {
               variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { duration: 0.55, delay: 0.2 + i * 0.1, ease: [0.19,1,0.22,1] } } }}
               initial="hidden"
               animate={inView ? 'show' : 'hidden'}
-              className="glass text-center py-8 px-4 relative overflow-hidden"
+              className="glass glass-hover text-center py-8 px-4 relative overflow-hidden"
             >
               {/* Top accent line */}
               <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, #3B82F6, transparent)' }} />
