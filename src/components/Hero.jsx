@@ -84,7 +84,7 @@ function OrbitPill({ pill }) {
 }
 
 /* ── Magnetic Button ─────────────────────────────────── */
-function MagneticButton({ children, className, href, download, id }) {
+function MagneticButton({ children, className, href, download, id, target, rel }) {
   const ref = useRef(null)
   const [position, setPosition] = useState({ x: 0, y: 0 })
 
@@ -107,6 +107,8 @@ function MagneticButton({ children, className, href, download, id }) {
       href={href}
       id={id}
       download={download}
+      target={target}
+      rel={rel}
       className={className}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -178,8 +180,15 @@ export default function Hero() {
             variants={container}
             initial="hidden"
             animate="show"
-            className="flex flex-col"
+            className="flex flex-col relative"
           >
+            {/* Focal highlight behind text */}
+            <div className="absolute -inset-10 pointer-events-none" style={{
+              background: 'radial-gradient(ellipse at 80% 50%, rgba(59,130,246,0.12), transparent 70%)',
+              filter: 'blur(30px)',
+              zIndex: -1
+            }} />
+
             {/* Eyebrow badge */}
             <motion.div variants={fadeUp} className="mb-6">
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium text-green-400"
@@ -226,9 +235,11 @@ export default function Hero() {
                 View Projects
               </MagneticButton>
               <MagneticButton
-                href="/Priyanshu_Macwan_Resume.pdf"
+                href={PERSONAL.resumeUrl || "/resume/resume.pdf"}
                 id="hero-download-resume"
                 download
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn btn-outline text-sm px-6 py-3"
               >
                 Download Resume ↗
@@ -290,10 +301,10 @@ export default function Hero() {
                 style={{
                   width: 380, height: 380,
                   borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(59,130,246,0.25) 0%, rgba(168,85,247,0.15) 50%, transparent 70%)',
+                  background: 'radial-gradient(circle, rgba(59,130,246,0.4) 0%, rgba(168,85,247,0.2) 50%, transparent 70%)',
                   top: '50%', left: '50%',
                   x: '-50%', y: '-50%',
-                  filter: 'blur(55px)',
+                  filter: 'blur(60px)',
                 }}
               />
               <motion.div
@@ -323,8 +334,8 @@ export default function Hero() {
               className="float-orb absolute rounded-full pointer-events-none"
               style={{
                 width: 300, height: 300,
-                background: 'radial-gradient(circle, rgba(59,130,246,0.08), rgba(139,92,246,0.05), transparent 70%)',
-                border: '1px solid rgba(59,130,246,0.12)',
+                background: 'radial-gradient(circle, rgba(59,130,246,0.15), rgba(139,92,246,0.08), transparent 70%)',
+                border: '1px solid rgba(59,130,246,0.2)',
               }}
             />
 

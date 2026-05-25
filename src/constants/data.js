@@ -28,7 +28,7 @@ export const PERSONAL = {
   email: "priyanshumacwan1604@gmail.com",
   github: "https://github.com/24CS049Priyanshu",
   linkedin: "https://www.linkedin.com/in/priyanshu-macwan-697b72324",
-  resumeUrl: "/Priyanshu_Macwan_Resume.pdf", // Place resume at public/
+  resumeUrl: "/resume/Priyanshu_Macwan_resume.pdf", // Place resume at public/resume/Priyanshu_Macwan_resume.pdf
 };
 
 // ─── STATS (hero/about counters) ─────────────────────────────
@@ -105,6 +105,7 @@ export const PROJECTS = [
     stack: ["Next.js 15", "Spotify API", "OpenAI GPT-4o-mini", "TypeScript", "Tailwind CSS"],
     github: "https://github.com/24CS049Priyanshu/sonicdna",
     demo: "https://sonicdna.vercel.app/",
+    image: "/images/projects/sonicdna.png",
     gradientFrom: "#3B82F6",
     gradientTo: "#8B5CF6",
     highlight: "Live on Vercel ↗",
@@ -137,6 +138,7 @@ export const PROJECTS = [
     stack: ["HTML5", "CSS3", "JavaScript"],
     github: "https://github.com/24CS049Priyanshu/EcoH2",
     demo: null,
+    image: "/images/projects/h2-infrastructure.png",
     gradientFrom: "#06B6D4",
     gradientTo: "#3B82F6",
     highlight: "Green Energy Focus",
@@ -153,6 +155,7 @@ export const PROJECTS = [
     stack: ["Python", "OpenCV", "NumPy", "Mathematics"],
     github: "https://github.com/24CS049Priyanshu/Face_Detection",
     demo: null,
+    image: "/images/projects/face-detection.png",
     gradientFrom: "#8B5CF6",
     gradientTo: "#3B82F6",
     highlight: "Research-oriented",
@@ -169,6 +172,7 @@ export const PROJECTS = [
     stack: ["HTML5", "CSS3"],
     github: "https://github.com/24CS049Priyanshu/Student-portal",
     demo: null,
+    image: "/images/projects/student-portal.png",
     gradientFrom: "#3B82F6",
     gradientTo: "#06B6D4",
     highlight: "Clean UI",

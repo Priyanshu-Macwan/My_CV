@@ -90,18 +90,30 @@ function CardVisual({ p, height = '200px' }) {
         borderBottom: '1px solid rgba(255,255,255,0.06)',
       }}
     >
-      <div className="pf-img-inner absolute inset-0">
-        {art.svg}
-      </div>
+      {p.image ? (
+        <div className="absolute inset-0 overflow-hidden">
+          <div 
+             className="absolute inset-0 bg-cover bg-top transition-transform duration-700 ease-out group-hover:scale-105"
+             style={{ backgroundImage: `url(${p.image})` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[rgba(15,23,42,0.95)] via-[rgba(15,23,42,0.2)] to-transparent" />
+        </div>
+      ) : (
+        <div className="pf-img-inner absolute inset-0">
+          {art.svg}
+        </div>
+      )}
       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '40px', background: 'linear-gradient(to bottom, transparent, rgba(8,14,26,0.9))', zIndex: 5 }} />
-      <div className="absolute inset-0 flex items-center justify-center z-10" style={{ opacity: 0.7 }}>
-        <span style={{ fontSize: 56, filter: `drop-shadow(0 0 24px ${p.gradientFrom}60)` }}>
-          {p.emoji}
-        </span>
-      </div>
+      {!p.image && (
+        <div className="absolute inset-0 flex items-center justify-center z-10" style={{ opacity: 0.7 }}>
+          <span style={{ fontSize: 56, filter: `drop-shadow(0 0 24px ${p.gradientFrom}60)` }}>
+            {p.emoji}
+          </span>
+        </div>
+      )}
       <div className="absolute top-3 left-3 z-20">
         <span className="px-2 py-1 rounded-md text-[10px] font-medium text-slate-300"
-              style={{ background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(8px)' }}>
+              style={{ background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.1)', backdropFilter: 'blur(8px)' }}>
           {p.tag}
         </span>
       </div>
@@ -141,8 +153,9 @@ function StackPills({ stack, accent }) {
 
 /* ── Featured card ───────────────────────────────────── */
 function FeaturedCard({ p }) {
+  const isSonic = p.id === 'sonicdna';
   return (
-    <div className="glass project-card overflow-hidden relative">
+    <div className="glass project-card overflow-hidden relative group" style={isSonic ? { boxShadow: '0 0 45px rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.2)' } : {}}>
       {/* Featured badge */}
       <div className="absolute top-3 right-3 z-10">
         <span className="px-2.5 py-1 rounded-full text-[10px] font-semibold text-blue-300 tracking-wide"
@@ -150,7 +163,7 @@ function FeaturedCard({ p }) {
           ★ Featured
         </span>
       </div>
-      <CardVisual p={p} height="240px" />
+      <CardVisual p={p} height="340px" />
       <div className="p-7">
         <h3 className="font-semibold text-slate-100 mb-2" style={{ fontSize: 'clamp(18px, 2.5vw, 22px)', fontWeight: 600 }}>
           {p.name}
@@ -166,8 +179,8 @@ function FeaturedCard({ p }) {
 /* ── Medium card ─────────────────────────────────────── */
 function MediumCard({ p }) {
   return (
-    <div className="glass project-card overflow-hidden flex flex-col">
-      <CardVisual p={p} height="160px" />
+    <div className="glass project-card overflow-hidden flex flex-col group">
+      <CardVisual p={p} height="200px" />
       <div className="p-5 flex flex-col flex-1">
         <h3 className="font-semibold text-slate-100 text-base mb-1.5" style={{ fontWeight: 600 }}>{p.name}</h3>
         <p className="text-slate-400 text-sm leading-relaxed font-light flex-1">{p.description}</p>
@@ -181,11 +194,15 @@ function MediumCard({ p }) {
 /* ── Compact card (horizontal) ───────────────────────── */
 function CompactCard({ p }) {
   return (
-    <div className="glass project-card overflow-hidden flex gap-0">
+    <div className="glass project-card overflow-hidden flex gap-0 group">
       {/* Side visual strip */}
-      <div className="shrink-0 w-20 flex items-center justify-center"
+      <div className="shrink-0 w-24 sm:w-32 flex items-center justify-center relative overflow-hidden"
            style={{ background: `linear-gradient(180deg, ${p.gradientFrom}18, ${p.gradientTo}10)` }}>
-        <span style={{ fontSize: 28, filter: `drop-shadow(0 0 12px ${p.gradientFrom}50)` }}>{p.emoji}</span>
+        {p.image ? (
+          <div className="absolute inset-0 bg-cover bg-top transition-transform duration-700 ease-out group-hover:scale-105" style={{ backgroundImage: `url(${p.image})` }} />
+        ) : (
+          <span style={{ fontSize: 28, filter: `drop-shadow(0 0 12px ${p.gradientFrom}50)` }}>{p.emoji}</span>
+        )}
       </div>
       <div className="p-4 flex flex-col justify-between flex-1 min-w-0">
         <div>
