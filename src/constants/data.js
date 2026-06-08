@@ -170,7 +170,7 @@ export const PROJECTS = [
     description:
       "Student data management system covering grades, attendance, courses, and assignments — clean multi-page HTML/CSS dashboard built for academic tracking.",
     stack: ["HTML5", "CSS3"],
-    github: "https://github.com/24CS049Priyanshu/Student-portal",
+    github: "https://github.com/24CS049Priyanshu/Student_portal_main.git",
     demo: null,
     image: "/images/projects/student-portal.png",
     gradientFrom: "#3B82F6",
